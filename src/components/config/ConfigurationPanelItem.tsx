@@ -6,7 +6,7 @@ import { Track } from "livekit-client";
 type ConfigurationPanelItemProps = {
   title: string;
   children?: ReactNode;
-  source?: Track.Source;
+  source?: "camera" | "microphone";
   collapsible?: boolean;
   defaultCollapsed?: boolean;
 };
@@ -31,10 +31,10 @@ export const ConfigurationPanelItem: React.FC<ConfigurationPanelItemProps> = ({
                 className="px-2 py-1 bg-gray-900 text-gray-300 border border-gray-800 rounded-sm hover:bg-gray-800"
                 source={source}
               />
-              {source === Track.Source.Camera && (
+              {source === "camera" && (
                 <PlaygroundDeviceSelector kind="videoinput" />
               )}
-              {source === Track.Source.Microphone && (
+              {source === "microphone" && (
                 <PlaygroundDeviceSelector kind="audioinput" />
               )}
             </span>
