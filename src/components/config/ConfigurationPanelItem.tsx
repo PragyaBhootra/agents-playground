@@ -1,11 +1,11 @@
 import { ReactNode, useState } from "react";
 import { PlaygroundDeviceSelector } from "@/components/playground/PlaygroundDeviceSelector";
-import { TrackToggle } from "@livekit/components-react";
+import { TrackToggle, ToggleSource } from "@livekit/components-react"; // ✅ Added ToggleSource import
 
 type ConfigurationPanelItemProps = {
   title: string;
   children?: ReactNode;
-  source?: "camera" | "microphone"; // ✅ Use string union
+  source?: ToggleSource; // ✅ Use ToggleSource enum type instead of strings
   collapsible?: boolean;
   defaultCollapsed?: boolean;
 };
@@ -28,12 +28,12 @@ export const ConfigurationPanelItem: React.FC<ConfigurationPanelItemProps> = ({
             <span className="flex flex-row gap-2">
               <TrackToggle
                 className="px-2 py-1 bg-gray-900 text-gray-300 border border-gray-800 rounded-sm hover:bg-gray-800"
-                source={source as "camera" | "microphone"} // ✅ Ensure type match
+                source={source} // ✅ Directly use ToggleSource enum
               />
-              {source === "camera" && (
+              {source === ToggleSource.Camera && ( // ✅ Use enum for comparison
                 <PlaygroundDeviceSelector kind="videoinput" />
               )}
-              {source === "microphone" && (
+              {source === ToggleSource.Microphone && ( // ✅ Use enum for comparison
                 <PlaygroundDeviceSelector kind="audioinput" />
               )}
             </span>
@@ -70,3 +70,4 @@ export const ConfigurationPanelItem: React.FC<ConfigurationPanelItemProps> = ({
     </div>
   );
 };
+
