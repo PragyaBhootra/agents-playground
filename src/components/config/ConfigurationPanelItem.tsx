@@ -1,12 +1,11 @@
 import { ReactNode, useState } from "react";
 import { PlaygroundDeviceSelector } from "@/components/playground/PlaygroundDeviceSelector";
 import { TrackToggle } from "@livekit/components-react";
-import { Track } from "livekit-client";
 
 type ConfigurationPanelItemProps = {
   title: string;
   children?: ReactNode;
-  source?: "camera" | "microphone";
+  source?: "camera" | "microphone"; // ✅ Use string union
   collapsible?: boolean;
   defaultCollapsed?: boolean;
 };
@@ -29,7 +28,7 @@ export const ConfigurationPanelItem: React.FC<ConfigurationPanelItemProps> = ({
             <span className="flex flex-row gap-2">
               <TrackToggle
                 className="px-2 py-1 bg-gray-900 text-gray-300 border border-gray-800 rounded-sm hover:bg-gray-800"
-                source={source}
+                source={source as "camera" | "microphone"} // ✅ Ensure type match
               />
               {source === "camera" && (
                 <PlaygroundDeviceSelector kind="videoinput" />
@@ -45,7 +44,9 @@ export const ConfigurationPanelItem: React.FC<ConfigurationPanelItemProps> = ({
               className="text-gray-400 hover:text-gray-300 transition-colors"
             >
               <svg
-                className={`w-4 h-4 transform transition-transform ${!isCollapsed ? "rotate-180" : ""}`}
+                className={`w-4 h-4 transform transition-transform ${
+                  !isCollapsed ? "rotate-180" : ""
+                }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
